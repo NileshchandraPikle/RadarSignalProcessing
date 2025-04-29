@@ -5,4 +5,5 @@ C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\fft_processing.c
 C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\main.cpp;C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\x64\Debug\main.obj
 C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\mimo_synthesis.cpp;C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\x64\Debug\mimo_synthesis.obj
 C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\peak_detection.cpp;C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\x64\Debug\peak_detection.obj
+C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\rcs.cpp;C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\x64\Debug\rcs.obj
 C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\target_processing.cpp;C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\x64\Debug\target_processing.obj

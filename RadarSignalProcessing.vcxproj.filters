@@ -39,6 +39,9 @@
     <ClCompile Include="target_processing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="rcs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.hpp">
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="target_processing.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="rcs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

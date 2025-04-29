@@ -138,6 +138,7 @@
     <ClInclude Include="fft_processing.hpp" />
     <ClInclude Include="mimo_synthesis.hpp" />
     <ClInclude Include="peak_detection.hpp" />
+    <ClInclude Include="rcs.hpp" />
     <ClInclude Include="target_processing.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +149,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mimo_synthesis.cpp" />
     <ClCompile Include="peak_detection.cpp" />
+    <ClCompile Include="rcs.cpp" />
     <ClCompile Include="target_processing.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

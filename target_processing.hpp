@@ -13,6 +13,7 @@ namespace TargetProcessing {
         double azimuth;          // Azimuth angle in degrees
         double elevation;        // Elevation angle in degrees
         double strength;         // Signal strength
+        double rcs;
     };
 
     using TargetList = std::vector<Target>;

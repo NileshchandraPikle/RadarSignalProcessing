@@ -8,6 +8,7 @@
 #include "mimo_synthesis.hpp"
 #include "doa_processing.hpp"
 #include "target_processing.hpp" 
+#include "rcs.hpp"
 
 
 int main() {
@@ -93,7 +94,24 @@ int main() {
                 << ", Strength: " << target.strength << std::endl;
         }
 
-  } 
+   
+    /*********************STEP 6 RADAR CROSS SECTION *******************/
+     // Example radar parameters
+    double transmittedPower = 1.0; // Example: 1 Watt
+    double transmitterGain = 10.0; // Example: 10 dB
+    double receiverGain = 10.0;    // Example: 10 dB
+
+    // Detect targets
+    TargetProcessing::TargetList targets = TargetProcessing::detect_targets(peakSnaps, doaResults);
+
+    // Estimate RCS for each target
+    RCSEstimation::estimate_rcs(targets, transmittedPower, transmitterGain, receiverGain);
+
+    // Output results
+    for (const auto& target : targets) {
+        std::cout << "Target RCS: " << target.rcs << " m^2" << std::endl;
+    }
+ }
     // Keep the terminal display until a key is pressed
     std::cout << "Processing complete. Press any key to exit..." << std::endl;
     std::cin.get();
