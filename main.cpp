@@ -81,17 +81,18 @@ int main() {
             std::cout << "(" << result.first << ", " << result.second << ")" << std::endl;
         }
         std::cout << "peaksnap size = " << peakSnaps.size() << std::endl;
-    //*********************STEP 5 TARGET PROCESSING *******************
-    /*TargetProcessing::TargetList targetList = TargetProcessing::process_targets(peakSnaps, peakList);
+        //*********************STEP 5 TARGET DETECTION *******************
+        TargetProcessing::TargetList targetList = TargetProcessing::detect_targets(peakSnaps, doaResults);
 
-    std::cout << "Targets detected:" << std::endl;
-    for (const auto& target : targetList) {
-        std::cout << "Azimuth: " << target.azimuth
-            << ", Elevation: " << target.elevation
-            << ", Range: " << target.range
-            << ", Velocity: " << target.velocity
-            << ", Strength: " << target.strength << std::endl;
-    }*/
+        std::cout << "Targets detected:" << std::endl;
+        for (const auto& target : targetList) {
+            std::cout << "Location: (" << target.x << ", " << target.y << ", " << target.z << ")"
+                << ", Range: " << target.range
+                << ", Azimuth: " << target.azimuth
+                << ", Elevation: " << target.elevation
+                << ", Strength: " << target.strength << std::endl;
+        }
+
   } 
     // Keep the terminal display until a key is pressed
     std::cout << "Processing complete. Press any key to exit..." << std::endl;

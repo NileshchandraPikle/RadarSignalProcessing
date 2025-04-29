@@ -1,42 +1,51 @@
 #include "target_processing.hpp"
-#include <cmath> // For trigonometric functions and abs
+#include <cmath> // For trigonometric functions
 #include <iostream> // For debug output
 
 namespace TargetProcessing {
-    TargetList process_targets(const RadarData::PeakSnaps& peakSnaps, const RadarData::PeakList& peakList) {
+    TargetList detect_targets(const RadarData::PeakSnaps& peakSnaps,
+        const std::vector<std::pair<double, double>>& doaResults) {
         TargetList targetList;
 
         // Radar parameters
         double wavelength = RadarConfig::WAVELENGTH;
         double d = RadarConfig::ANTENNA_SPACING;
 
-        for (const auto& peak : peakList) {
-            int receiver = std::get<0>(peak);
-            int chirp = std::get<1>(peak);
-            int sample = std::get<2>(peak);
+        // Ensure the sizes of peakSnaps and doaResults match
+        if (peakSnaps.size() != doaResults.size()) {
+            std::cerr << "Error: Mismatch between PeakSnaps and DOA results sizes." << std::endl;
+            return targetList;
+        }
 
-            // Validate indices before accessing peakSnaps
-            if (receiver >= peakSnaps.size() || chirp >= peakSnaps[receiver].size()) {
-                std::cerr << "Error: Index out of range in peakList. Receiver: " << receiver
-                    << ", Chirp: " << chirp << std::endl;
-                continue; // Skip invalid indices
+        // Iterate over each detected peak
+        for (size_t i = 0; i < peakSnaps.size(); ++i) {
+            const auto& snap = peakSnaps[i];
+            const auto& doa = doaResults[i];
+
+            // Extract azimuth and elevation
+            double azimuth = doa.first;   // In degrees
+            double elevation = doa.second; // In degrees
+
+            // Calculate range (placeholder: replace with actual range calculation)
+            double range = 100.0; // Example: Replace with actual range calculation logic
+
+            // Convert azimuth and elevation to radians
+            double azimuthRad = azimuth * RadarConfig::PI / 180.0;
+            double elevationRad = elevation * RadarConfig::PI / 180.0;
+
+            // Convert to Cartesian coordinates
+            double x = range * cos(elevationRad) * cos(azimuthRad);
+            double y = range * cos(elevationRad) * sin(azimuthRad);
+            double z = range * sin(elevationRad);
+
+            // Calculate signal strength (placeholder: replace with actual logic)
+            double strength = 0.0;
+            for (const auto& value : snap) {
+                strength += std::abs(value); // Sum of signal amplitudes
             }
 
-            // Extract signal strength from peakSnaps
-            double strength = std::abs(peakSnaps[receiver][chirp]);
-
-            // Calculate range (based on sample index and radar parameters)
-            double range = (sample * wavelength) / (2.0 * RadarConfig::NUM_SAMPLES);
-
-            // Placeholder: Calculate azimuth and elevation (requires DOA processing)
-            double azimuth = 0.0;   // Replace with actual azimuth calculation
-            double elevation = 0.0; // Replace with actual elevation calculation
-
-            // Placeholder: Calculate velocity (requires Doppler processing)
-            double velocity = 0.0; // Replace with actual velocity calculation
-
             // Add the target to the list
-            targetList.push_back({ azimuth, elevation, range, velocity, strength });
+            targetList.push_back({ x, y, z, range, azimuth, elevation, strength });
         }
 
         return targetList;
