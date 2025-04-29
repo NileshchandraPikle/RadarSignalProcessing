@@ -36,6 +36,9 @@
     <ClCompile Include="doa_processing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="target_processing.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.hpp">
@@ -47,9 +50,6 @@
     <ClInclude Include="fft_processing.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="error_handling.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="peak_detection.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -57,6 +57,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="doa_processing.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="target_processing.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

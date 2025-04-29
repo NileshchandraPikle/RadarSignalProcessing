@@ -135,10 +135,10 @@
     <ClInclude Include="config.hpp" />
     <ClInclude Include="datatypes.hpp" />
     <ClInclude Include="doa_processing.hpp" />
-    <ClInclude Include="error_handling.hpp" />
     <ClInclude Include="fft_processing.hpp" />
     <ClInclude Include="mimo_synthesis.hpp" />
     <ClInclude Include="peak_detection.hpp" />
+    <ClInclude Include="target_processing.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="config.cpp" />
@@ -148,6 +148,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mimo_synthesis.cpp" />
     <ClCompile Include="peak_detection.cpp" />
+    <ClCompile Include="target_processing.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

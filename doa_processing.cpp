@@ -4,12 +4,14 @@
 #include <iostream>
 #include <vector>
 #include <complex>
+#include <algorithm> // For std::sort
+#include <numeric>   // For std::inner_product
 
 namespace DOAProcessing {
     using namespace std;
 
     // Helper function to compute the Hermitian (conjugate transpose) of a matrix
-    vector<vector<complex<double>>> hermitian(const vector<vector<complex<double>>>& matrix){
+    vector<vector<complex<double>>> hermitian(const vector<vector<complex<double>>>& matrix) {
         size_t rows = matrix.size();
         size_t cols = matrix[0].size();
         vector<vector<complex<double>>> result(cols, vector<complex<double>>(rows));
@@ -53,8 +55,69 @@ namespace DOAProcessing {
         return R;
     }
 
+    // Helper function to perform eigenvalue decomposition manually
+    pair<vector<double>, vector<vector<complex<double>>>> eigen_decomposition(
+        vector<vector<complex<double>>>& matrix, int max_iters, double tol) {
+        size_t n = matrix.size();
+        vector<double> eigenvalues(n, 0.0);
+        vector<vector<complex<double>>> eigenvectors(n, vector<complex<double>>(n, { 0.0, 0.0 }));
+
+        for (size_t k = 0; k < n; ++k) {
+            vector<complex<double>> eigenvector(n, { 1.0, 0.0 }); // Initial guess
+            double eigenvalue = 0.0;
+
+            for (int iter = 0; iter < max_iters; ++iter) {
+                // Multiply matrix by the current eigenvector
+                vector<complex<double>> next_vector(n, { 0.0, 0.0 });
+                for (size_t i = 0; i < n; ++i) {
+                    for (size_t j = 0; j < n; ++j) {
+                        next_vector[i] += matrix[i][j] * eigenvector[j];
+                    }
+                }
+
+                // Normalize the resulting vector
+                double norm = 0.0;
+                for (const auto& val : next_vector) {
+                    norm += std::norm(val);
+                }
+                norm = sqrt(norm);
+                for (auto& val : next_vector) {
+                    val /= norm;
+                }
+
+                // Compute the Rayleigh quotient for the eigenvalue
+                double next_eigenvalue = 0.0;
+                for (size_t i = 0; i < n; ++i) {
+                    next_eigenvalue += real(conj(next_vector[i]) * eigenvector[i]);
+                }
+
+                // Check for convergence
+                if (abs(next_eigenvalue - eigenvalue) < tol) {
+                    eigenvalue = next_eigenvalue;
+                    eigenvector = next_vector;
+                    break;
+                }
+
+                eigenvalue = next_eigenvalue;
+                eigenvector = next_vector;
+            }
+
+            eigenvalues[k] = eigenvalue;
+            eigenvectors[k] = eigenvector;
+
+            // Deflate the matrix
+            for (size_t i = 0; i < n; ++i) {
+                for (size_t j = 0; j < n; ++j) {
+                    matrix[i][j] -= eigenvalue * eigenvector[i] * conj(eigenvector[j]);
+                }
+            }
+        }
+
+        return make_pair(eigenvalues, eigenvectors);
+    }
+
     void compute_music_doa(const RadarData::PeakSnaps& peakSnaps,
-        std::vector<std::pair<double, double>>& doaResults,
+        vector<pair<double, double>>& doaResults,
         int num_sources) {
         doaResults.clear();
 
@@ -66,15 +129,24 @@ namespace DOAProcessing {
         for (const auto& snap : peakSnaps) {
             int num_receivers = snap.size();
             if (num_receivers < num_sources) {
-                std::cerr << "Insufficient receivers for MUSIC algorithm." << std::endl;
+                cerr << "Insufficient receivers for MUSIC algorithm." << endl;
                 continue;
             }
 
             // Compute the covariance matrix
             auto R = compute_covariance(snap);
 
-            // Placeholder: Perform eigenvalue decomposition manually (not implemented here)
-            // Separate signal and noise subspaces (requires eigenvalue decomposition)
+            // Perform eigenvalue decomposition
+            pair<vector<double>, vector<vector<complex<double>>>> eigen_result =
+                eigen_decomposition(R);
+            vector<double> eigenvalues = eigen_result.first;
+            vector<vector<complex<double>>> eigenvectors = eigen_result.second;
+
+            // Separate signal and noise subspaces
+            vector<vector<complex<double>>> noiseSubspace;
+            for (int i = num_sources; i < num_receivers; ++i) {
+                noiseSubspace.push_back(eigenvectors[i]);
+            }
 
             // MUSIC spectrum calculation
             double azimuth = 0.0, elevation = 0.0;
@@ -91,8 +163,13 @@ namespace DOAProcessing {
                         steering[i] = exp(complex<double>(0, phase));
                     }
 
-                    // Compute MUSIC spectrum (placeholder logic)
-                    double spectrum = 1.0; // Replace with actual projection onto noise subspace
+                    // Compute MUSIC spectrum
+                    double spectrum = 0.0;
+                    for (const auto& noiseVec : noiseSubspace) {
+                        double projection = std::abs(std::inner_product(noiseVec.begin(), noiseVec.end(),
+                            steering.begin(), std::complex<double>(0, 0)));
+                        spectrum += 1.0 / (projection * projection);
+                    }
 
                     if (spectrum > max_spectrum) {
                         max_spectrum = spectrum;
@@ -101,6 +178,7 @@ namespace DOAProcessing {
                     }
                 }
             }
+
             // Store the result
             doaResults.emplace_back(azimuth, elevation);
         }

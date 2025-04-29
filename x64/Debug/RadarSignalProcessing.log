@@ -1,18 +1,2 @@
-﻿  config.cpp
-  doa_processing.cpp
-C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\doa_processing.cpp(67,31): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  fft_processing.cpp
-C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\fft_processing.cpp(41,28): warning C4244: 'argument': conversion from 'const size_t' to 'const std::complex<double>::_Ty', possible loss of data
-C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\fft_processing.cpp(69,28): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\fft_processing.cpp(85,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\fft_processing.cpp(86,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\fft_processing.cpp(87,25): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\fft_processing.cpp(114,24): warning C4244: 'argument': conversion from 'size_t' to 'const std::complex<double>::_Ty', possible loss of data
-  main.cpp
-  mimo_synthesis.cpp
-  peak_detection.cpp
-C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\peak_detection.cpp(11,27): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\peak_detection.cpp(12,24): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\peak_detection.cpp(13,25): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  Generating Code...
+﻿  main.cpp
   RadarSignalProcessing.vcxproj -> C:\Dev\CPP_Projects\RadarSignalProcessing\x64\Debug\RadarSignalProcessing.exe
