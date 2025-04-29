@@ -25,6 +25,7 @@ namespace RadarData {
     using ThresholdingMap = std::vector<std::vector<Real>>;
     using PeakList = std::vector<std::tuple<int, int, int>>;
     using PeakSnaps = std::vector<std::vector<std::complex<double>>>;
+	using PeakSnap = std::vector<std::complex<double>>;
 }
 
 #endif // DATA_TYPES_H
