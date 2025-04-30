@@ -3,6 +3,7 @@ C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\datatypes.cpp;C:
 C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\doa_processing.cpp;C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\x64\Debug\doa_processing.obj
 C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\ego_estimation.cpp;C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\x64\Debug\ego_estimation.obj
 C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\fft_processing.cpp;C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\x64\Debug\fft_processing.obj
+C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\ghost_removal.cpp;C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\x64\Debug\ghost_removal.obj
 C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\main.cpp;C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\x64\Debug\main.obj
 C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\mimo_synthesis.cpp;C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\x64\Debug\mimo_synthesis.obj
 C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\peak_detection.cpp;C:\Dev\CPP_Projects\RadarSignalProcessing\RadarSignalProcessing\x64\Debug\peak_detection.obj

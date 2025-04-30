@@ -10,6 +10,7 @@
 #include "target_processing.hpp" 
 #include "rcs.hpp"
 #include "ego_estimation.hpp"
+#include "ghost_removal.hpp"
 
 
 int main() {
@@ -80,20 +81,20 @@ int main() {
         // Output DOA results for the current frame
         std::cout << "DOA Results (Azimuth, Elevation) for frame " << frameIndex + 1 << ":" <<doaResults.size()<<std::endl;
         for (const auto& result : doaResults) {
-            std::cout << "(" << result.first << ", " << result.second << ")" << std::endl;
+            //std::cout << "(" << result.first << ", " << result.second << ")" << std::endl;
         }
         std::cout << "peaksnap size = " << peakSnaps.size() << std::endl;
         //*********************STEP 5 TARGET DETECTION *******************
         TargetProcessing::TargetList targetList = TargetProcessing::detect_targets(peakSnaps, doaResults);
 
-        std::cout << "Targets detected:" << std::endl;
-        for (const auto& target : targetList) {
+        //std::cout << "Targets detected:" << std::endl;
+        /*for (const auto& target : targetList) {
             std::cout << "Location: (" << target.x << ", " << target.y << ", " << target.z << ")"
                 << ", Range: " << target.range
                 << ", Azimuth: " << target.azimuth
                 << ", Elevation: " << target.elevation
                 << ", Strength: " << target.strength << ", Relative Speed: " << target.relativeSpeed << std::endl;
-        }
+        }*/
 
    
     /*********************STEP 6 RADAR CROSS SECTION *******************/
@@ -110,15 +111,27 @@ int main() {
 
     // Output results
     for (const auto& target : targets) {
-        std::cout << "Target RCS: " << target.rcs << " m^2" << std::endl;
+        //std::cout << "Target RCS: " << target.rcs << " m^2" << std::endl;
     }
     /*********************STEP 6 RADAR CROSS SECTION *******************/
     double egoSpeed = EgoMotion::estimate_ego_motion(targetList);
     std::cout << "Estimated Ego Vehicle Speed: " << egoSpeed << " m/s" << std::endl;
 
-  }
+  	//*********************STEP 7 GHOST TARGET REMOVAL *******************/
+    TargetProcessing::TargetList filteredTargets = GhostRemoval::remove_ghost_targets(targetList, egoSpeed);
 
-  
+    // Output filtered targets
+    std::cout << "Filtered Targets (after ghost removal):" << std::endl;
+    for (const auto& target : filteredTargets) {
+        std::cout << "Location: (" << target.x << ", " << target.y << ", " << target.z << ")"
+            << ", Range: " << target.range
+            << ", Azimuth: " << target.azimuth
+            << ", Elevation: " << target.elevation
+            << ", Strength: " << target.strength
+            << ", Relative Speed: " << target.relativeSpeed << std::endl;
+    }
+	std::cout << "Number of targets after ghost removal: " << filteredTargets.size() << std::endl;
+  }
     // Keep the terminal display until a key is pressed
     std::cout << "Processing complete. Press any key to exit..." << std::endl;
     std::cin.get();

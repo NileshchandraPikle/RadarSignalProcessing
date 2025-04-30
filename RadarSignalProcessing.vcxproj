@@ -137,6 +137,7 @@
     <ClInclude Include="doa_processing.hpp" />
     <ClInclude Include="ego_estimation.hpp" />
     <ClInclude Include="fft_processing.hpp" />
+    <ClInclude Include="ghost_removal.hpp" />
     <ClInclude Include="mimo_synthesis.hpp" />
     <ClInclude Include="peak_detection.hpp" />
     <ClInclude Include="rcs.hpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="doa_processing.cpp" />
     <ClCompile Include="ego_estimation.cpp" />
     <ClCompile Include="fft_processing.cpp" />
+    <ClCompile Include="ghost_removal.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mimo_synthesis.cpp" />
     <ClCompile Include="peak_detection.cpp" />
