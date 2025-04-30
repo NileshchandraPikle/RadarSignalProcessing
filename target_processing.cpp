@@ -18,6 +18,23 @@ namespace TargetProcessing {
         return timeDelay;
     }
 
+    // Function to calculate Doppler frequency shift
+    double calculate_doppler_shift(const std::vector<std::complex<double>>& snap) {
+        if (snap.empty()) {
+            std::cerr << "Error: Empty snapshot provided for Doppler shift calculation." << std::endl;
+            return 0.0;
+        }
+
+        // Example logic: Use phase difference between consecutive samples to estimate Doppler shift
+        double dopplerShift = 0.0;
+        for (size_t i = 1; i < snap.size(); ++i) {
+            double phaseDiff = std::arg(snap[i]) - std::arg(snap[i - 1]);
+            dopplerShift += phaseDiff;
+        }
+        dopplerShift /= (snap.size() - 1); // Average phase difference
+        return dopplerShift;
+    }
+
     TargetList detect_targets(const RadarData::PeakSnaps& peakSnaps,
         const std::vector<std::pair<double, double>>& doaResults) {
         TargetList targetList;
@@ -61,8 +78,12 @@ namespace TargetProcessing {
                 strength += std::abs(value); // Explicitly use std::abs for std::complex
             }
 
+            // Calculate relative speed using Doppler shift
+            double dopplerShift = calculate_doppler_shift(snap);
+            double relativeSpeed = (dopplerShift * wavelength) / 2.0;
+
             // Add the target to the list
-            targetList.push_back({ x, y, z, range, azimuth, elevation, strength });
+            targetList.push_back({ x, y, z, range, azimuth, elevation, strength, 0.0, relativeSpeed });
         }
 
         return targetList;

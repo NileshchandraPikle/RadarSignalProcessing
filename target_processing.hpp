@@ -14,6 +14,7 @@ namespace TargetProcessing {
         double elevation;        // Elevation angle in degrees
         double strength;         // Signal strength
         double rcs;
+        double relativeSpeed;
     };
 
     using TargetList = std::vector<Target>;

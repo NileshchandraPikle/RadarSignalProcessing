@@ -135,6 +135,7 @@
     <ClInclude Include="config.hpp" />
     <ClInclude Include="datatypes.hpp" />
     <ClInclude Include="doa_processing.hpp" />
+    <ClInclude Include="ego_estimation.hpp" />
     <ClInclude Include="fft_processing.hpp" />
     <ClInclude Include="mimo_synthesis.hpp" />
     <ClInclude Include="peak_detection.hpp" />
@@ -145,6 +146,7 @@
     <ClCompile Include="config.cpp" />
     <ClCompile Include="datatypes.cpp" />
     <ClCompile Include="doa_processing.cpp" />
+    <ClCompile Include="ego_estimation.cpp" />
     <ClCompile Include="fft_processing.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mimo_synthesis.cpp" />

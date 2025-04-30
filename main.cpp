@@ -9,6 +9,7 @@
 #include "doa_processing.hpp"
 #include "target_processing.hpp" 
 #include "rcs.hpp"
+#include "ego_estimation.hpp"
 
 
 int main() {
@@ -91,7 +92,7 @@ int main() {
                 << ", Range: " << target.range
                 << ", Azimuth: " << target.azimuth
                 << ", Elevation: " << target.elevation
-                << ", Strength: " << target.strength << std::endl;
+                << ", Strength: " << target.strength << ", Relative Speed: " << target.relativeSpeed << std::endl;
         }
 
    
@@ -111,7 +112,13 @@ int main() {
     for (const auto& target : targets) {
         std::cout << "Target RCS: " << target.rcs << " m^2" << std::endl;
     }
- }
+    /*********************STEP 6 RADAR CROSS SECTION *******************/
+    double egoSpeed = EgoMotion::estimate_ego_motion(targetList);
+    std::cout << "Estimated Ego Vehicle Speed: " << egoSpeed << " m/s" << std::endl;
+
+  }
+
+  
     // Keep the terminal display until a key is pressed
     std::cout << "Processing complete. Press any key to exit..." << std::endl;
     std::cin.get();
